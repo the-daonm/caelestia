@@ -11,16 +11,22 @@ argparse -n 'install.fish' -X 0 \
     'docker' \
     'nvim' \
     'aur-helper=!contains -- "$_flag_value" yay paru' \
+    'intel' \
+    'amd' \
+    'nvidia' \
     -- $argv
 or exit
 
 # Print help
 if set -q _flag_h
-    echo 'usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper]'
+    echo 'usage: ./install.fish [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper] [--intel] [--amd] [--nvidia]'
     echo
     echo 'options:'
     echo '  -h, --help                  show this help message and exit'
     echo '  --noconfirm                 do not confirm package installation'
+    echo '  --intel                     install Intel drivers'
+    echo '  --amd                       install AMD drivers'
+    echo '  --nvidia                    install Nvidia drivers'
     echo '  --spotify                   install Spotify (Spicetify)'
     echo '  --vscode=[codium|code]      install VSCodium (or VSCode)'
     echo '  --discord                   install Discord (OpenAsar + Equicord)'
@@ -337,6 +343,24 @@ if set -q _flag_docker
     # Add user to group
     log 'Adding user to docker group...'
     sudo usermod -aG docker $USER
+end
+
+# Install Intel drivers
+if set -q _flag_intel
+    log 'Installing Intel drivers...'
+    $aur_helper -S --needed vulkan-intel intel-media-driver $noconfirm
+end
+
+# Install AMD drivers
+if set -q _flag_amd
+    log 'Installing AMD drivers...'
+    $aur_helper -S --needed vulkan-radeon libva-mesa-driver $noconfirm
+end
+
+# Install Nvidia drivers
+if set -q _flag_nvidia
+    log 'Installing Nvidia drivers...'
+    $aur_helper -S --needed nvidia-dkms nvidia-utils nvidia-settings $noconfirm
 end
 
 # Generate scheme stuff if needed

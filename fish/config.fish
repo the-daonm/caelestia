@@ -10,6 +10,7 @@ if status is-interactive
     alias ls='eza --icons --group-directories-first -1'
 
     # Abbrs
+    abbr nv 'nvim'
     abbr cl 'clear'
     abbr gsudo 'sudo -E'
     abbr ld lazydocker

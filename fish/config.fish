@@ -2,16 +2,33 @@ if status is-interactive
     # Starship custom prompt
     starship init fish | source
 
-    # Direnv + Zoxide
-    command -v direnv &>/dev/null && direnv hook fish | source
-    command -v zoxide &>/dev/null && zoxide init fish --cmd cd | source
+    # Direnv
+    if command -v direnv &>/dev/null
+        direnv hook fish | source
+    end
+
+    # FZF
+    if command -v fzf &>/dev/null
+        fzf --fish | source
+    end
+
+    # Zoxide
+    if command -v zoxide &>/dev/null
+        zoxide init fish --cmd cd | source
+    end
+
+    # FZF Configuration with fd
+    if command -v fd &>/dev/null
+        set -gx FZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git --exclude '.steam*' --exclude 'steam'"
+        set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+    end
 
     # Better ls
     alias ls='eza --icons --group-directories-first -1'
 
     # Abbrs
-    abbr nv 'nvim'
-    abbr cl 'clear'
+    abbr nv nvim
+    abbr cl clear
     abbr gsudo 'sudo -E'
     abbr ld lazydocker
     abbr lg lazygit
@@ -36,15 +53,11 @@ if status is-interactive
     abbr la 'ls -a'
     abbr lla 'ls -la'
 
+    # Apps
+    abbr fm nemo
+
     # Custom colours
     cat ~/.local/state/caelestia/sequences.txt 2>/dev/null
-
-    fzf --fish | source
-    zoxide init fish | source
-
-    set -gx MY_FZF_CMD "fd --type f --hidden --exclude '.steam*' --exclude 'steam'"
-    set -gx FZF_DEFAULT_COMMAND $MY_FZF_CMD
-    set -gx FZF_CTRL_T_COMMAND $MY_FZF_CMD
 
     # For jumping between prompts in foot terminal
     function mark_prompt_start --on-event fish_prompt

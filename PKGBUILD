@@ -13,9 +13,9 @@ depends=('caelestia-cli' 'caelestia-shell'
          'hyprland' 'xdg-desktop-portal-hyprland' 'xdg-desktop-portal-gtk' 'hyprpicker'
          'wl-clipboard' 'cliphist' 'inotify-tools' 'app2unit' 'wireplumber' 'trash-cli'
          'foot' 'fish' 'eza' 'fastfetch' 'starship' 'btop' 'jq' 'adw-gtk-theme'
-         'papirus-icon-theme' 'qt5ct-kde' 'qt6ct-kde' 'ttf-jetbrains-mono-nerd')
-optdepends=('thunar: file manager'
-            'spotify: music player'
+         'papirus-icon-theme' 'qt5ct-kde' 'qt6ct-kde' 'ttf-jetbrains-mono-nerd'
+         'nemo' 'fzf' 'fd' 'zoxide' 'direnv')
+optdepends=('spotify: music player'
             'vscode: code editor'
             'zen-browser: web browser'
             'todoist-appimage: todo manager'
@@ -23,6 +23,4 @@ optdepends=('thunar: file manager'
             'docker: containerization'
             'uwsm: uwsm session'
             'gnome-keyring: keyring daemon'
-            'polkit-gnome: gnome polkit client'
-            'direnv: isolated dev envs'
-            'zoxide: better cd')
+            'polkit-gnome: gnome polkit client')

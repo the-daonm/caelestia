@@ -19,11 +19,14 @@ The install script has some options for installing configs for some apps.
 
 ```
 $ ./install.fish -h
-usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper]
+usage: ./install.fish [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper] [--intel] [--amd] [--nvidia]
 
 options:
   -h, --help                  show this help message and exit
   --noconfirm                 do not confirm package installation
+  --intel                     install Intel drivers
+  --amd                       install AMD drivers
+  --nvidia                    install Nvidia drivers
   --spotify                   install Spotify (Spicetify)
   --vscode=[codium|code]      install VSCodium (or VSCode)
   --discord                   install Discord (OpenAsar + Equicord)

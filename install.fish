@@ -291,11 +291,11 @@ if set -q _flag_zen
     log 'Installing zen...'
     $aur_helper -S --needed zen-browser-bin $noconfirm
 
-    # Install userChrome css
+    # Install zen-theme css
     set -l chrome $HOME/.zen/*/chrome
-    if confirm-overwrite $chrome/userChrome.css
-        log 'Installing zen userChrome...'
-        ln -s (realpath zen/userChrome.css) $chrome/userChrome.css
+    if confirm-overwrite $chrome/zen-theme.css
+        log 'Installing zen theme...'
+        ln -s (realpath zen/zen-theme.css) $chrome/zen-theme.css
     end
 
     # Install native app
@@ -312,7 +312,7 @@ if set -q _flag_zen
     if confirm-overwrite $lib/caelestiafox
         log 'Installing zen native app...'
         mkdir -p $lib
-        ln -s (realpath zen/native_app/app.fish) $lib/caelestiafox
+        ln -s (realpath zen/native_app/app.py) $lib/caelestiafox
     end
 
     # Prompt user to install extension

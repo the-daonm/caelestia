@@ -9,6 +9,7 @@ argparse -n 'install.fish' -X 0 \
     'zen' \
     'greetd' \
     'docker' \
+    'nvim' \
     'aur-helper=!contains -- "$_flag_value" yay paru' \
     -- $argv
 or exit
@@ -26,6 +27,7 @@ if set -q _flag_h
     echo '  --zen                       install Zen browser'
     echo '  --greetd                    install greetd (tuigreet)'
     echo '  --docker                    install Docker'
+    echo '  --nvim                      install Neovim (NvChad)'
     echo '  --aur-helper=[yay|paru]     the AUR helper to use'
 
     exit
@@ -250,6 +252,18 @@ if set -q _flag_vscode
 
         # Install extension
         $prog --install-extension vscode/caelestia-vscode-integration/caelestia-vscode-integration-*.vsix
+    end
+end
+
+# Install nvim
+if set -q _flag_nvim
+    log 'Installing neovim...'
+    $aur_helper -S --needed neovim $noconfirm
+
+    # Install config
+    if confirm-overwrite $config/nvim
+        log 'Installing neovim config...'
+        ln -s (realpath nvim) $config/nvim
     end
 end
 

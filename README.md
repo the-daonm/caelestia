@@ -19,7 +19,7 @@ The install script has some options for installing configs for some apps.
 
 ```
 $ ./install.fish -h
-usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--aur-helper]
+usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper]
 
 options:
   -h, --help                  show this help message and exit
@@ -28,6 +28,8 @@ options:
   --vscode=[codium|code]      install VSCodium (or VSCode)
   --discord                   install Discord (OpenAsar + Equicord)
   --zen                       install Zen browser
+  --greetd                    install greetd (tuigreet)
+  --docker                    install Docker
   --aur-helper=[yay|paru]     the AUR helper to use
 ```
 
@@ -64,6 +66,15 @@ Dependencies:
 -   qt5ct-kde
 -   qt6ct-kde
 -   ttf-jetbrains-mono-nerd
+
+#### Manual setup for Greetd:
+
+If you want to use greetd with tuigreet, copy or symlink the `greetd/config.toml` to `/etc/greetd/config.toml` (requires sudo) and enable the service:
+
+```sh
+sudo cp greetd/config.toml /etc/greetd/config.toml
+sudo systemctl enable greetd
+```
 
 Install all dependencies and follow the installation guides of the
 [shell](https://github.com/caelestia-dots/shell) and [cli](https://github.com/caelestia-dots/cli)
@@ -120,13 +131,6 @@ Finally, install the CaelestiaFox extension from [here](https://addons.mozilla.o
 Simply run `yay` to update the AUR packages, then `cd` into the repo directory and run `git pull` to update the configs.
 
 ## Usage
-
-> [!NOTE]
-> These dots do not contain a login manager (for now), so you must install a
-> login manager yourself unless you want to log in from a TTY. I recommend
-> [`greetd`](https://sr.ht/~kennylevinsen/greetd) with
-> [`tuigreet`](https://github.com/apognu/tuigreet), however you can use
-> any login manager you want.
 
 There aren't really any usage instructions... these are a set of dotfiles.
 

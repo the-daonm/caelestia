@@ -7,13 +7,15 @@ argparse -n 'install.fish' -X 0 \
     'vscode=?!contains -- "$_flag_value" codium code' \
     'discord' \
     'zen' \
+    'greetd' \
+    'docker' \
     'aur-helper=!contains -- "$_flag_value" yay paru' \
     -- $argv
 or exit
 
 # Print help
 if set -q _flag_h
-    echo 'usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--aur-helper]'
+    echo 'usage: ./install.sh [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper]'
     echo
     echo 'options:'
     echo '  -h, --help                  show this help message and exit'
@@ -22,6 +24,8 @@ if set -q _flag_h
     echo '  --vscode=[codium|code]      install VSCodium (or VSCode)'
     echo '  --discord                   install Discord (OpenAsar + Equicord)'
     echo '  --zen                       install Zen browser'
+    echo '  --greetd                    install greetd (tuigreet)'
+    echo '  --docker                    install Docker'
     echo '  --aur-helper=[yay|paru]     the AUR helper to use'
 
     exit
@@ -293,6 +297,32 @@ if set -q _flag_zen
 
     # Prompt user to install extension
     log 'Please install the CaelestiaFox extension from https://addons.mozilla.org/en-US/firefox/addon/caelestiafox if you have not already done so.'
+end
+
+# Install greetd
+if set -q _flag_greetd
+    log 'Installing greetd...'
+    $aur_helper -S --needed greetd greetd-tuigreet $noconfirm
+
+    # Install config
+    if confirm-overwrite /etc/greetd/config.toml
+        log 'Installing greetd config...'
+        sudo cp greetd/config.toml /etc/greetd/config.toml
+    end
+
+    # Enable service
+    log 'Enabling greetd service...'
+    sudo systemctl enable greetd
+end
+
+# Install docker
+if set -q _flag_docker
+    log 'Installing docker...'
+    $aur_helper -S --needed docker docker-compose $noconfirm
+
+    # Add user to group
+    log 'Adding user to docker group...'
+    sudo usermod -aG docker $USER
 end
 
 # Generate scheme stuff if needed

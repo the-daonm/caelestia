@@ -348,7 +348,7 @@ end
 # Install Intel drivers
 if set -q _flag_intel
     log 'Installing Intel drivers...'
-    $aur_helper -S --needed vulkan-intel intel-media-driver $noconfirm
+    $aur_helper -S --needed vulkan-intel intel-media-driver libva-intel-driver $noconfirm
 end
 
 # Install AMD drivers
@@ -360,7 +360,7 @@ end
 # Install Nvidia drivers
 if set -q _flag_nvidia
     log 'Installing Nvidia drivers...'
-    $aur_helper -S --needed nvidia-dkms nvidia-utils nvidia-settings $noconfirm
+    $aur_helper -S --needed linux-header nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver $noconfirm
 end
 
 # Generate scheme stuff if needed

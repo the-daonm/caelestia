@@ -333,6 +333,13 @@ if set -q _flag_greetd
     # Enable service
     log 'Enabling greetd service...'
     sudo systemctl enable greetd
+
+    # Wait for docker if it's selected or installed
+    if set -q _flag_docker; or systemctl list-unit-files | grep -q docker.service
+        log 'Making greetd wait for docker...'
+        sudo mkdir -p /etc/systemd/system/greetd.service.d
+        printf "[Unit]\nAfter=docker.service\n" | sudo tee /etc/systemd/system/greetd.service.d/docker-dependency.conf > /dev/null
+    end
 end
 
 # Install docker

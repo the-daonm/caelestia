@@ -21,6 +21,7 @@ optdepends=('spotify: music player'
             'todoist-appimage: todo manager'
             'greetd: login manager'
             'docker: containerization'
+            'virt-manager: virtual machine manager'
             'uwsm: uwsm session'
             'gnome-keyring: keyring daemon'
             'polkit-gnome: gnome polkit client')

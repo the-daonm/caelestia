@@ -9,6 +9,7 @@ argparse -n 'install.fish' -X 0 \
     'zen' \
     'greetd' \
     'docker' \
+    'virt-manager' \
     'nvim' \
     'aur-helper=!contains -- "$_flag_value" yay paru' \
     'intel' \
@@ -19,7 +20,7 @@ or exit
 
 # Print help
 if set -q _flag_h
-    echo 'usage: ./install.fish [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--aur-helper] [--intel] [--amd] [--nvidia]'
+    echo 'usage: ./install.fish [-h] [--noconfirm] [--spotify] [--vscode] [--discord] [--zen] [--greetd] [--docker] [--virt-manager] [--aur-helper] [--intel] [--amd] [--nvidia]'
     echo
     echo 'options:'
     echo '  -h, --help                  show this help message and exit'
@@ -33,6 +34,7 @@ if set -q _flag_h
     echo '  --zen                       install Zen browser'
     echo '  --greetd                    install greetd (tuigreet)'
     echo '  --docker                    install Docker'
+    echo '  --virt-manager              install virt-manager (KVM/QEMU)'
     echo '  --nvim                      install Neovim (NvChad)'
     echo '  --aur-helper=[yay|paru]     the AUR helper to use'
 
@@ -345,11 +347,25 @@ end
 # Install docker
 if set -q _flag_docker
     log 'Installing docker...'
-    $aur_helper -S --needed docker docker-compose $noconfirm
+    $aur_helper -S --needed docker docker-compose docker-buildx $noconfirm
 
     # Add user to group
     log 'Adding user to docker group...'
     sudo usermod -aG docker $USER
+end
+
+# Install virt-manager
+if set -q _flag_virt_manager
+    log 'Installing virt-manager...'
+    $aur_helper -S --needed virt-manager qemu-desktop libvirt dnsmasq iptables-nft $noconfirm
+
+    # Enable service
+    log 'Enabling libvirtd service...'
+    sudo systemctl enable --now libvirtd
+
+    # Add user to group
+    log 'Adding user to libvirt group...'
+    sudo usermod -aG libvirt $USER
 end
 
 # Install Intel drivers

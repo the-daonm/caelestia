@@ -23,6 +23,12 @@ if status is-interactive
         set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
     end
 
+    # Less Configuration with bat
+    if command -v less &>/dev/null
+      set -gx LESS "-R"
+      set -gx LESSOPEN "| bat --color=always --style=numbers,changes %s"
+    end
+
     # theme_gruvbox dark medium
 
     fish_vi_cursor 
@@ -35,7 +41,6 @@ if status is-interactive
     abbr d docker
     abbr dc "docker compose"
     abbr k kubectl
-    abbr kg "kubectl get"
     abbr nv nvim
     abbr cl clear
     abbr gsudo 'sudo -E'

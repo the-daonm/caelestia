@@ -270,6 +270,11 @@ if set -q _flag_nvim
 
     # Install config
     if confirm-overwrite $config/nvim
+        log 'Cloning NvChad...'
+        if not test -d nvim
+            git clone git@github.com:the-daonm/NvChad nvim
+        end
+
         log 'Installing neovim config...'
         ln -s (realpath nvim) $config/nvim
     end

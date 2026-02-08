@@ -29,7 +29,14 @@ if status is-interactive
       set -gx LESSOPEN "| bat --color=always --style=numbers,changes %s"
     end
 
-    # theme_gruvbox dark medium
+    if status is-interactive
+      set -gx EDITOR nvim
+      set -gx VISUAL nvim
+    end
+
+    set -gx COLORTERM truecolor
+
+    theme_gruvbox dark medium
 
     fish_vi_cursor 
     fish_vi_key_bindings
@@ -68,7 +75,7 @@ if status is-interactive
     abbr lla 'ls -la'
 
     # Custom colours
-    cat ~/.local/state/caelestia/sequences.txt 2>/dev/null
+    # cat ~/.local/state/caelestia/sequences.txt 2>/dev/null
 
     # For jumping between prompts in foot terminal
     function mark_prompt_start --on-event fish_prompt

@@ -388,7 +388,7 @@ end
 # Install Nvidia drivers
 if set -q _flag_nvidia
     log 'Installing Nvidia drivers...'
-    $aur_helper -S --needed linux-header nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver $noconfirm
+    $aur_helper -S --needed linux-headers nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver $noconfirm
 end
 
 # Generate scheme stuff if needed

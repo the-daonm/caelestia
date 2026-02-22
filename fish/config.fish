@@ -7,6 +7,11 @@ if status is-interactive
         direnv hook fish | source
     end
 
+    # SSH
+    if not set -q SSH_AUTH_SOCK
+        eval (ssh-agent -c) > /dev/null
+    end
+
     # FZF
     if command -v fzf &>/dev/null
         fzf --fish | source
